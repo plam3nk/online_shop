@@ -1,0 +1,45 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="slider_section">
+                    <div class="slider_container">
+                        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <div class="detail-box text-center"> <!-- Add 'text-center' class to center the content -->
+                                        <h1>{{ product.name }}</h1>
+                                        <div class="img-box-img">
+                                            <img src="{{ product.photo.url }}" alt="{{ product.name }}">
+                                        </div>
+                                        <div class="product-details">
+                                            <h4>Price: <span>{{ product.price }}</span>$</h4>
+                                            <p>{{ product.description }}</p>
+                                        </div>
+
+{#                                        <div class="btn-box">#}
+{#                                            <a href="{% url 'orders_buy' pk=product.pk %}" class="btn btn-primary">Buy</a>#}
+{#                                        </div>#}
+
+                                        <div class="btn-box">
+                                            <a href="{% url 'shop_page' %}" class="btn btn-primary">Back to Shop</a>
+                                            {% if request.user.is_staff %}
+                                            <a href="{% url 'edit_product' pk=product.pk %}" class="btn btn-primary">Edit Product</a>
+                                        </div>
+                                        <div class="btn-box">
+                                            <a href="{% url 'delete_product' pk=product.pk %}" class="btn btn-primary">Delete</a>
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

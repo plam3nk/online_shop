@@ -1,0 +1,20 @@
+<!-- edit_product.html -->
+
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container layout_padding">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-primary">Update Product</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

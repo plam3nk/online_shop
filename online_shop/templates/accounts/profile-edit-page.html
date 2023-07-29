@@ -1,0 +1,31 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="slider_section">
+                <div class="slider_container">
+                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="detail-box">
+                                    <form method="post" action="{% url 'profile edit' pk=request.user.pk %}">
+                                        {% csrf_token %}
+
+                                        {{ form.as_p }}
+
+                                        <button type="submit" class="btn btn-primary">Edit</button>
+                                    </form>
+                                    <a class="edit-btn" href="javascript:history.back()">Go Back</a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

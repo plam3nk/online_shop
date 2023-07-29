@@ -1,0 +1,64 @@
+{% load static %}
+<body>
+<div class="hero_area">
+    <!-- header section strats -->
+    <header class="header_section">
+        <nav class="navbar navbar-expand-lg custom_nav-container ">
+            <a class="navbar-brand" href="{% url 'index' %}">
+          <span>
+            D&M Handmade Gifts
+          </span>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class=""></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav  ">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'shop_page' %}">
+                            Shop
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'why_page' %}">
+                            Why Us
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'contact_page' %}">Contact Us</a>
+                    </li>
+                </ul>
+                {% if not request.user.is_authenticated %}
+                    <div class="user_option">
+                    <a href="{% url 'login user' %}">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    Login
+                {% else %}
+                    <div class="user_option">
+                    <a href="{% url 'profile details' pk=request.user.pk %}">
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                        Profile
+                    </a>
+                    <a href="">
+                        <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+                    </a>
+                {% endif %}
+                <form class="searchbar" method="get" action="{% url 'index' %}">
+                    {{ search_form }}
+                    <button class="btn nav_search-btn" type="submit">
+                        <i class="fa fa-search" aria-hidden="false"></i>
+                    </button>
+                    {% csrf_token %}
+                </form>
+                </div>
+                </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+</div>

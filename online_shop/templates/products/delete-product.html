@@ -1,0 +1,22 @@
+{% extends 'common/base.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="container">
+        <div class="box">
+            <div class="detail-box">
+                <h1>Are you sure you want to delete this product?</h1>
+                <p>This action cannot be undone.</p>
+                <form action="{% url 'delete_product' product.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn1">Delete</button>
+                    <div class="btn-box">
+                        <a href="{% url 'delete_product' pk=product.pk %}" class="btn btn-primary">Delete</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+
+{% endblock %}

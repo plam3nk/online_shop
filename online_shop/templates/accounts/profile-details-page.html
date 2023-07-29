@@ -1,0 +1,88 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- Center the Profile Details Section -->
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+
+            <!-- Start Profile Details Section -->
+            <div class="profile">
+
+                <!-- Start Profile Personal Data Section -->
+                <div class="profile-data">
+
+                    <!-- Center the Profile Image -->
+                    <div class="text-center">
+                        <div class="profile_img">
+                            <div class="image">
+                                <!-- Profile Image -->
+                                <img src="{{ profile_image }}" alt="Profile Image">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slider_section">
+                        <div class="slider_container">
+                            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="detail-box">
+                                                        <!-- User Username -->
+                                                        <p style="font-size: 30px; font-weight: bold;">Username:</p>
+                                                        <p style="font-size: 28px;">{{ object.username }}</p>
+
+                                                        <!-- IF the viewer is the owner of the profile -->
+                                                        <!-- Link to Edit Profile Page -->
+                                                        <!-- End IF the viewer is the owner of the profile -->
+                                                        <!-- User First and Last Name IF Added -->
+                                                        <p style="font-size: 30px; font-weight: bold;">Your names:</p>
+                                                        <h3 class="names" style="font-size: 28px;">
+                                                            {% if object.full_name %}
+                                                                {{ object.full_name }}
+                                                            {% else %}
+                                                                Empty
+                                                            {% endif %}
+                                                        </h3>
+
+                                                        <p style="font-size: 30px; font-weight: bold;">Email address:</p>
+                                                        <!-- User Email Address -->
+                                                        <p class="email" style="font-size: 24px;">{{ object.email }}</p>
+                                                    <p style="font-size: 30px; font-weight: bold;">Phone number:</p>
+                                                        <!-- User Email Address -->
+                                                        <p class="email" style="font-size: 24px;">{{ object.phone_number }}</p>
+                                                        <a href="{% url 'profile edit' pk=object.pk %}">
+                                                            Edit Profile
+                                                        </a>
+
+                                                        <!-- Link to Delete Profile Page -->
+                                                        <a href="{% url 'profile delete' pk=object.pk %}">
+                                                            Delete Profile
+                                                        </a>
+                                                        <a href="{% url 'logout user' %}">
+                                                            Logout
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Profile Personal Data Section -->
+
+            </div>
+            <!-- End Profile Details Section -->
+        </div>
+    </div>
+</div>
+
+{% endblock %}
