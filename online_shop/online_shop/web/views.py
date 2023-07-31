@@ -6,24 +6,23 @@ from online_shop.web.forms import SearchForm
 
 
 # Create your views here.
-
-def index(request):
-    search_form = SearchForm(request.GET)
-
-    context = {
-        'search_form': search_form,
+class IndexPage(views.ListView):
+    template_name = 'index.html'
+    model = Product
+    extra_context = {
+        'products': Product.objects.filter().order_by('-id')[:8]
     }
-    return render(request, template_name='index.html')
+
+    id = 5
 
 
 class ShopPage(views.ListView):
     template_name = 'shop.html'
     model = Product
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['products'] = Product.objects.all()
 
-        return context
+    extra_context = {
+        'products': Product.objects.all()
+    }
 
 
 def contact_page(request):

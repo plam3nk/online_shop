@@ -1,0 +1,36 @@
+{% extends 'common/base.html' %}
+{% load static %}
+{% block content %}
+    <style>
+        .order-info {
+            font-size: 20px;
+        }
+    </style>
+    <!-- shop section -->
+
+    <section class="shop_section layout_padding">
+        <div class="container">
+            <div class="heading_container heading_center">
+                <h2>
+                    My Orders
+                </h2>
+            </div>
+            <div class="row">
+                {% for order in object_list %}
+                    <h6 class="order-info">
+                        {{ order.get_info }}
+                    </h6>
+                {% endfor %}
+                <div class="col-12 text-center mt-4">
+                        <div class="btn-box">
+                        <a href="{% url 'shop_page' %}" class="btn btn-primary btn-sm">
+                            Back to shop
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- end shop section -->
+
+{% endblock %}

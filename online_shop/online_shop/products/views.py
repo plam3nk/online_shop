@@ -1,6 +1,6 @@
 from django.contrib.admin.views.decorators import staff_member_required
-from django.shortcuts import render
-from django.urls import reverse_lazy
+from django.shortcuts import render, redirect
+from django.urls import reverse_lazy, reverse
 from django.utils.decorators import method_decorator
 from django.views import generic as views
 
@@ -31,7 +31,17 @@ class ProductDetailsView(views.DetailView):
     model = Product
     template_name = 'products/details-product.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['pk'] = self.object.pk
+        return context
+
+    def post(self, request, *args, **kwargs):
+        product = self.get_object()
+        return redirect(reverse('create-order', kwargs={'pk': product.pk}))
+
 
 class ProductDeleteView(views.DeleteView):
     model = Product
     template_name = 'products/delete-product.html'
+    success_url = reverse_lazy('index')

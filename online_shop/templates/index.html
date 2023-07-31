@@ -53,206 +53,29 @@
                 </h2>
             </div>
             <div class="row">
-                <div class="col-sm-6 col-md-4 col-lg-3">
-                    <div class="box">
-                        <a href="">
+                {% for product in products %}
+                    <div class="col-sm-6 col-md-4 col-lg-3">
+                        <div class="box">
                             <div class="img-box">
-                                <img src="{% static 'images/p1.png' %}" alt="">
+                                <img src="/media/{{ product.photo }}" alt="">
                             </div>
                             <div class="detail-box">
                                 <h6>
-                                    Ring
+                                    {{ product.name }}
                                 </h6>
                                 <h6>
                                     Price
                                     <span>
-                    $200
-                  </span>
+                                        {{ product.price }}$
+                                    </span>
                                 </h6>
                             </div>
                             <div class="new">
-                <span>
-                  New
-                </span>
+                                <a href="{% url 'details_product' pk=product.pk %}">More</a>
                             </div>
-                        </a>
+                        </div>
                     </div>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3">
-                    <div class="box">
-                        <a href="">
-                            <div class="img-box">
-                                <img src="{% static 'images/p2.png' %}" alt="">
-                            </div>
-                            <div class="detail-box">
-                                <h6>
-                                    Watch
-                                </h6>
-                                <h6>
-                                    Price
-                                    <span>
-                    $300
-                  </span>
-                                </h6>
-                            </div>
-                            <div class="new">
-                <span>
-                  New
-                </span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3">
-                    <div class="box">
-                        <a href="">
-                            <div class="img-box">
-                                <img src="{% static 'images/p3.png' %}" alt="">
-                            </div>
-                            <div class="detail-box">
-                                <h6>
-                                    Teddy Bear
-                                </h6>
-                                <h6>
-                                    Price
-                                    <span>
-                    $110
-                  </span>
-                                </h6>
-                            </div>
-                            <div class="new">
-                <span>
-                  New
-                </span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3">
-                    <div class="box">
-                        <a href="">
-                            <div class="img-box">
-                                <img src="{% static 'images/p4.png' %}" alt="">
-                            </div>
-                            <div class="detail-box">
-                                <h6>
-                                    Flower Bouquet
-                                </h6>
-                                <h6>
-                                    Price
-                                    <span>
-                    $45
-                  </span>
-                                </h6>
-                            </div>
-                            <div class="new">
-                <span>
-                  New
-                </span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3">
-                    <div class="box">
-                        <a href="">
-                            <div class="img-box">
-                                <img src="{% static 'images/p5.png' %}" alt="">
-                            </div>
-                            <div class="detail-box">
-                                <h6>
-                                    Teddy Bear
-                                </h6>
-                                <h6>
-                                    Price
-                                    <span>
-                    $95
-                  </span>
-                                </h6>
-                            </div>
-                            <div class="new">
-                <span>
-                  New
-                </span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3">
-                    <div class="box">
-                        <a href="">
-                            <div class="img-box">
-                                <img src="{% static 'images/p6.png' %}" alt="">
-                            </div>
-                            <div class="detail-box">
-                                <h6>
-                                    Flower Bouquet
-                                </h6>
-                                <h6>
-                                    Price
-                                    <span>
-                    $70
-                  </span>
-                                </h6>
-                            </div>
-                            <div class="new">
-                <span>
-                  New
-                </span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3">
-                    <div class="box">
-                        <a href="">
-                            <div class="img-box">
-                                <img src="{% static 'images/p7.png' %}" alt="">
-                            </div>
-                            <div class="detail-box">
-                                <h6>
-                                    Watch
-                                </h6>
-                                <h6>
-                                    Price
-                                    <span>
-                    $400
-                  </span>
-                                </h6>
-                            </div>
-                            <div class="new">
-                <span>
-                  New
-                </span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3">
-                    <div class="box">
-                        <a href="">
-                            <div class="img-box">
-                                <img src="{% static 'images/p8.png' %}" alt="">
-                            </div>
-                            <div class="detail-box">
-                                <h6>
-                                    Ring
-                                </h6>
-                                <h6>
-                                    Price
-                                    <span>
-                    $450
-                  </span>
-                                </h6>
-                            </div>
-                            <div class="new">
-                <span>
-                  New
-                </span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
             <div class="btn-box">
                 <a href="{% url 'shop_page' %}">
