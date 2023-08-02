@@ -1,4 +1,5 @@
 from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
@@ -11,7 +12,7 @@ from online_shop.products.models import Product
 
 # Create your views here.
 
-class OrderCreateView(views.CreateView):
+class OrderCreateView(LoginRequiredMixin, views.CreateView):
     model = Orders
     form_class = OrderCreateForm
     template_name = 'orders/create-order.html'
@@ -35,7 +36,7 @@ class OrderCreateView(views.CreateView):
         return super().form_valid(form)
 
 
-class OrderSuccessfulView(views.TemplateView):
+class OrderSuccessfulView(LoginRequiredMixin, views.TemplateView):
     template_name = 'orders/successful-order.html'
 
 
@@ -50,7 +51,7 @@ class AllOrdersView(views.ListView):
         return queryset
 
 
-class UserOrdersView(views.ListView):
+class UserOrdersView(LoginRequiredMixin, views.ListView):
     template_name = 'orders/user-orders.html'
     model = Orders
 
@@ -61,7 +62,7 @@ class UserOrdersView(views.ListView):
         return queryset
 
 
-class DeleteOrderView(views.DeleteView):
+class DeleteOrderView(LoginRequiredMixin, views.DeleteView):
     model = Orders
     template_name = 'orders/delete-order.html'
     success_url = reverse_lazy('all-orders')

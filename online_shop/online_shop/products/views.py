@@ -17,6 +17,7 @@ class ProductCreateView(views.CreateView):
     success_url = reverse_lazy('shop_page')
 
 
+@method_decorator(staff_member_required(login_url=reverse_lazy("login user")), name='dispatch')
 class ProductEditView(views.UpdateView):
     model = Product
     template_name = 'products/edit-product.html'
@@ -41,6 +42,7 @@ class ProductDetailsView(views.DetailView):
         return redirect(reverse('create-order', kwargs={'pk': product.pk}))
 
 
+@method_decorator(staff_member_required(login_url=reverse_lazy("login user")), name='dispatch')
 class ProductDeleteView(views.DeleteView):
     model = Product
     template_name = 'products/delete-product.html'

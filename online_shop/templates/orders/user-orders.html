@@ -18,7 +18,33 @@
             <div class="row">
                 {% for order in object_list %}
                     <h6 class="order-info">
-                        {{ order.get_info }}
+                        {% for order in object_list %}
+                    <h6 class="order-info">
+                        <div>
+                            --Names:
+                            {{ order.first_name }} {{ order.last_name }}--
+                        </div>
+                        <div>
+                            --Delivery:
+                            {% if order.delivery_type == 'H' %}
+                                Home address delivery -
+                                {% if order.delivery_company == 'E' %}
+                                    Econt--
+                                {% else %}
+                                    Speedy--
+                                {% endif %}
+                            {% else %}
+                            {% endif %}
+                        </div>
+                        <div>
+                            --Address:
+                            {{ order.address }}--
+                        </div>
+                        <a href="{% url 'delete-order' pk=order.pk %}" class="btn btn-primary btn-sm">
+                            Delete order
+                        </a>
+                    </h6>
+                {% endfor %}
                     </h6>
                 {% endfor %}
                 <div class="col-12 text-center mt-4">

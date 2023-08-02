@@ -1,0 +1,47 @@
+{% extends 'common/base.html' %}
+{% load static %}
+{% block content %}
+    <style>
+        .order-info {
+            font-size: 20px;
+        }
+    </style>
+    <!-- shop section -->
+
+    <section class="shop_section layout_padding">
+        <div class="container">
+            <div class="heading_container heading_center">
+                <h2>
+                    ALL MESSAGES
+                </h2>
+            </div>
+            <div class="row">
+                {% for contact in object_list %}
+                    <h6 class="order-info">
+                        <div>
+                            --Name:
+                            {{ contact.name }}--
+                        </div>
+                        <div>
+                            --Email:
+                            {{ contact.email }}--
+                        </div>
+                        <div>
+                            --Phone number:
+                            {{ contact.phone_number }}--
+                        </div>
+                        <p>
+                            --Message:
+                            {{ contact.message }}--
+                        </p>
+                        <a href="{% url 'delete-contact' pk=contact.pk %}" class="btn btn-primary btn-sm">
+                            Delete message
+                        </a>
+                    </h6>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <!-- end shop section -->
+
+{% endblock %}

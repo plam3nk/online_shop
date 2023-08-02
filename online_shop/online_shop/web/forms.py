@@ -1,8 +1,9 @@
 from django import forms
 
+from online_shop.web.models import Contact
 
-class SearchForm(forms.Form):
-    search_text = forms.CharField(
-        max_length=100,
-        required=False,
-    )
+
+class ContactForm(forms.ModelForm):
+    class Meta:
+        model = Contact
+        fields = '__all__'
