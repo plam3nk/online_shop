@@ -1,5 +1,5 @@
 # online_shop
-Online Shop Web Project
+Online Shop Web Project - 
 This is an online shop web project built using Django, a high-level Python web framework. The project allows users to browse and purchase products, manage their shopping cart, and view their order history.
 
 Features
