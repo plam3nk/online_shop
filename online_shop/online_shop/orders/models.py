@@ -8,7 +8,7 @@ from online_shop.products.models import Product
 UserModel = get_user_model()
 
 
-class Orders(models.Model):
+class Order(models.Model):
     DELIVERY_ECONT = 'E'
     DELIVERY_SPEEDY = 'S'
 
@@ -103,8 +103,4 @@ class Orders(models.Model):
         on_delete=models.DO_NOTHING
     )
 
-    def get_info(self):
-        return f'Names: {self.first_name} {self.last_name} - Phone Number: {self.phone_number}' \
-               f' - Delivery type: {self.delivery_type} - {self.delivery_company} ' \
-               f'Address:{self.address}'
 

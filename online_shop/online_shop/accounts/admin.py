@@ -8,4 +8,9 @@ UserModel = get_user_model()
 
 @admin.register(UserModel)
 class UserModelAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('username', 'full_name', 'contact')
+    ordering = ('-id', )
+
+    @staticmethod
+    def contact(order):
+        return order.email + '/' + order.phone_number

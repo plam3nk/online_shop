@@ -6,14 +6,14 @@ from django.utils.decorators import method_decorator
 from django.views import generic as views
 
 from online_shop.orders.forms import OrderCreateForm
-from online_shop.orders.models import Orders
+from online_shop.orders.models import Order
 from online_shop.products.models import Product
 
 
 # Create your views here.
 
 class OrderCreateView(LoginRequiredMixin, views.CreateView):
-    model = Orders
+    model = Order
     form_class = OrderCreateForm
     template_name = 'orders/create-order.html'
     success_url = reverse_lazy('successful-order')
@@ -43,26 +43,26 @@ class OrderSuccessfulView(LoginRequiredMixin, views.TemplateView):
 @method_decorator(staff_member_required(login_url=reverse_lazy("login user")), name='dispatch')
 class AllOrdersView(views.ListView):
     template_name = 'orders/all-orders-admin.html'
-    model = Orders
+    model = Order
 
     def get_queryset(self):
-        queryset = Orders.objects.all()
+        queryset = Order.objects.all()
 
         return queryset
 
 
 class UserOrdersView(LoginRequiredMixin, views.ListView):
     template_name = 'orders/user-orders.html'
-    model = Orders
+    model = Order
 
     def get_queryset(self):
         user_id = self.request.user.id
-        queryset = Orders.objects.filter(user_id=user_id)
+        queryset = Order.objects.filter(user_id=user_id)
 
         return queryset
 
 
 class DeleteOrderView(LoginRequiredMixin, views.DeleteView):
-    model = Orders
+    model = Order
     template_name = 'orders/delete-order.html'
     success_url = reverse_lazy('all-orders')

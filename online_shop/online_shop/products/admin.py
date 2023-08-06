@@ -7,4 +7,18 @@ from online_shop.products.models import Product
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('capitalized_name', 'capitalized_description', 'formatted_price')
+    ordering = ('-id',)
+
+    def capitalized_name(self, obj):
+        return obj.name.title()
+
+    capitalized_name.short_description = 'Name'
+
+    def capitalized_description(self, obj):
+        return obj.description.title()
+
+    def formatted_price(self, obj):
+        return f'{obj.price:.2f}$'
+
+    capitalized_description.short_description = 'Description'

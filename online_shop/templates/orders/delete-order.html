@@ -7,7 +7,7 @@
             <div class="detail-box text-center">
                 <h1>Are you sure you want to delete this order?</h1>
                 <p>This action cannot be undone.</p>
-                <form action="{% url 'delete-order' orders.id %}" method="post">
+                <form action="{% url 'delete-order' order.id %}" method="post">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-primary">Delete</button>
                 </form>
