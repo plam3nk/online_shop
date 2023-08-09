@@ -35,7 +35,7 @@
                         </div>
                     </div>
                 {% endfor %}
-                <div class="col-12 text-center mt-4"> <!-- Center the "Create product" button -->
+                <div class="col-12 text-center mt-4">
                     {% if request.user.is_staff %}
                         <div class="btn-box">
                         <a href="{% url 'create_product' %}" class="btn btn-primary btn-sm">

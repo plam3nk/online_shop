@@ -1,9 +1,11 @@
+from django.contrib.auth import get_user_model
+from django.core.exceptions import ValidationError
 from django.core.validators import MinLengthValidator
 from django.db import models
 
 
 # Create your models here.
-
+UserModel = get_user_model()
 class Contact(models.Model):
     NAME_MAX_LEN = 40
     NAME_MIN_LEN = 2
@@ -30,3 +32,23 @@ class Contact(models.Model):
     message = models.TextField(
         max_length=MESSAGE_MAX_LEN
     )
+
+
+class Testimonial(models.Model):
+    RATING_CHOICES = [
+        (1, '⭐'),
+        (2, '⭐⭐'),
+        (3, '⭐⭐⭐'),
+        (4, '⭐⭐⭐⭐'),
+        (5, '⭐⭐⭐⭐⭐'),
+    ]
+
+    user = models.ForeignKey(
+        UserModel,
+        on_delete=models.DO_NOTHING
+    )
+
+    rating = models.PositiveIntegerField(choices=RATING_CHOICES)
+
+    comment = models.TextField()
+

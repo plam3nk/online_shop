@@ -1,13 +1,12 @@
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views import generic as views
 
 from online_shop.products.models import Product
-from online_shop.web.forms import ContactForm
-from online_shop.web.models import Contact
+from online_shop.web.forms import ContactForm, TestimonialForm
+from online_shop.web.models import Contact, Testimonial
 
 
 # Create your views here.
@@ -35,6 +34,33 @@ class ContactPageView(views.CreateView):
     form_class = ContactForm
     model = Contact
     success_url = reverse_lazy('index')
+
+
+class TestimonialsPageView(views.ListView):
+    template_name = 'core/testimonials.html'
+    model = Testimonial
+    paginate_by = 1
+    ordering = ['-id']
+
+    context_object_name = 'reviews'
+
+
+class CreateTestimonialPageView(LoginRequiredMixin, views.CreateView):
+    template_name = 'core/create-testimonial.html'
+    form_class = TestimonialForm
+    model = Testimonial
+    success_url = reverse_lazy('testimonials')
+
+    def form_valid(self, form):
+        user = self.request.user
+
+        existing_review = Testimonial.objects.filter(user=user).first()
+        if existing_review:
+            form.add_error(None, 'You have already submitted a review.')
+            return self.form_invalid(form)
+
+        form.instance.user = user
+        return super().form_valid(form)
 
 
 class WhyPageView(views.TemplateView):

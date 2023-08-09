@@ -32,6 +32,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'contact_page' %}">Contact Us</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'testimonials' %}">Testimonials</a>
+                    </li>
                 </ul>
                 <div class="user_option">
                     {% if not request.user.is_authenticated %}
