@@ -39,8 +39,12 @@ class Contact(models.Model):
         )
     )
 
+    def __str__(self):
+        return f'{self.id} - {self.name}'
+
 
 class Testimonial(models.Model):
+    COMMENT_MAX_LEN = 300
     RATING_CHOICES = [
         (1, '⭐'),
         (2, '⭐⭐'),
@@ -56,4 +60,7 @@ class Testimonial(models.Model):
 
     rating = models.PositiveIntegerField(choices=RATING_CHOICES)
 
-    comment = models.TextField()
+    comment = models.TextField(max_length=COMMENT_MAX_LEN)
+
+    def __str__(self):
+        return f'{self.id} - {self.user.username}'

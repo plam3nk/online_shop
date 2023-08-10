@@ -65,4 +65,4 @@ class UserOrdersView(LoginRequiredMixin, views.ListView):
 class DeleteOrderView(LoginRequiredMixin, views.DeleteView):
     model = Order
     template_name = 'orders/delete-order.html'
-    success_url = reverse_lazy('all-orders')
+    success_url = reverse_lazy('index')

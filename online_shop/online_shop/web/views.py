@@ -15,18 +15,23 @@ from online_shop.web.models import Contact, Testimonial
 class IndexPageView(views.ListView):
     template_name = 'core/index.html'
     model = Product
-    extra_context = {
-        'products': Product.objects.filter().order_by('-id')[:8]
-    }
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['products'] = Product.objects.filter().order_by('-id')[:8]
+
+        return context
 
 
 class ShopPageView(views.ListView):
     template_name = 'core/shop.html'
     model = Product
 
-    extra_context = {
-        'products': Product.objects.all()
-    }
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['products'] = Product.objects.all()
+
+        return context
 
 
 class ContactPageView(views.CreateView):

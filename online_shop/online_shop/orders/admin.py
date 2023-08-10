@@ -22,6 +22,7 @@ class OrdersAdmin(admin.ModelAdmin):
     )
 
     list_display_links = (
+        'full_name',
         'product_name',
         'user_name',
     )
