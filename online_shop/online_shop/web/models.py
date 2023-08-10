@@ -1,16 +1,19 @@
 from django.contrib.auth import get_user_model
+from django.core import validators
 from django.core.exceptions import ValidationError
 from django.core.validators import MinLengthValidator
 from django.db import models
 
-
 # Create your models here.
 UserModel = get_user_model()
+
+
 class Contact(models.Model):
     NAME_MAX_LEN = 40
     NAME_MIN_LEN = 2
     PHONE_NUMBER_MAX_LEN = 10
     MESSAGE_MAX_LEN = 300
+    MESSAGE_MIN_LEN = 10
     name = models.CharField(
         null=False,
         blank=False,
@@ -30,7 +33,10 @@ class Contact(models.Model):
     )
 
     message = models.TextField(
-        max_length=MESSAGE_MAX_LEN
+        max_length=MESSAGE_MAX_LEN,
+        validators=(
+            validators.MinLengthValidator(MESSAGE_MIN_LEN),
+        )
     )
 
 
@@ -45,10 +51,9 @@ class Testimonial(models.Model):
 
     user = models.ForeignKey(
         UserModel,
-        on_delete=models.DO_NOTHING
+        on_delete=models.CASCADE
     )
 
     rating = models.PositiveIntegerField(choices=RATING_CHOICES)
 
     comment = models.TextField()
-

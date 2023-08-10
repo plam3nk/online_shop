@@ -18,7 +18,8 @@ class ProductAdmin(admin.ModelAdmin):
     def capitalized_description(self, obj):
         return obj.description.title()
 
-    def formatted_price(self, obj):
+    @staticmethod
+    def formatted_price(obj):
         return f'{obj.price:.2f}$'
 
     capitalized_description.short_description = 'Description'

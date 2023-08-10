@@ -100,7 +100,7 @@ class Order(models.Model):
 
     user = models.ForeignKey(
         UserModel,
-        on_delete=models.DO_NOTHING
+        on_delete=models.CASCADE
     )
 
 

@@ -2,6 +2,8 @@ from django.core import validators
 from django.db import models
 from django.contrib.auth import models as auth_models
 
+from online_shop.accounts.validators import validate_value_is_all_num
+
 
 # Create your models here.
 
@@ -33,7 +35,12 @@ class DMAppUser(auth_models.AbstractUser):
         max_length=PHONE_NUMBER_MAX_MIN_LEN,
         validators=(
             validators.MinLengthValidator(PHONE_NUMBER_MAX_MIN_LEN),
-        )
+            validate_value_is_all_num,
+        ),
+        error_messages={
+            'min_length': 'Phone number must have 10 characters.',
+            'max_length': 'Phone number must have 10 characters.',
+        }
     )
 
     @property
