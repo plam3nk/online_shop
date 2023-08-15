@@ -1,8 +1,11 @@
+import uuid
+
 from django.contrib.auth import get_user_model
 from django.core import validators
-from django.core.exceptions import ValidationError
-from django.core.validators import MinLengthValidator
+from django.core.validators import MinLengthValidator, MinValueValidator
 from django.db import models
+
+from online_shop.web.validators import validate_value_is_all_num
 
 # Create your models here.
 UserModel = get_user_model()
@@ -20,6 +23,7 @@ class Contact(models.Model):
         max_length=NAME_MAX_LEN,
         validators=(
             MinLengthValidator(NAME_MIN_LEN),
+            validate_value_is_all_num,
         )
     )
 
@@ -64,3 +68,34 @@ class Testimonial(models.Model):
 
     def __str__(self):
         return f'{self.id} - {self.user.username}'
+
+
+class Discount(models.Model):
+    MIN_AMOUNT_VALUE = 1
+
+    code = models.UUIDField(
+        default=uuid.uuid4,
+        editable=False,
+        unique=True,
+        error_messages={
+            'invalid': 'Invalid discount code.'
+        }
+    )
+
+    amount = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        validators=(
+            MinValueValidator(MIN_AMOUNT_VALUE),
+        )
+    )
+
+    active = models.BooleanField(default=True)
+
+    user = models.ForeignKey(
+        UserModel,
+        on_delete=models.CASCADE,
+    )
+
+    def __str__(self):
+        return f"{self.id} - Code: {self.code}"

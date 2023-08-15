@@ -2,9 +2,9 @@ from django.contrib.auth import get_user_model
 from django.core import validators
 from django.db import models
 
+from online_shop.orders.validators import validate_value_is_all_num
 from online_shop.products.models import Product
 
-# Create your models here.
 UserModel = get_user_model()
 
 
@@ -63,6 +63,7 @@ class Order(models.Model):
         blank=False,
         validators=(
             validators.MinLengthValidator(PHONE_NUMBER_MAX_MIN_LEN),
+            validate_value_is_all_num,
         )
     )
 
@@ -103,7 +104,10 @@ class Order(models.Model):
         on_delete=models.CASCADE
     )
 
+    discount_code = models.CharField(
+        blank=True,
+        null=True,
+    )
+
     def __str__(self):
         return f'{self.id} - {self.first_name} {self.last_name}'
-
-

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from online_shop.web.models import Contact, Testimonial
+from online_shop.web.models import Contact, Testimonial, Discount
 
 
 # Register your models here.
@@ -25,3 +25,12 @@ class TestimonialAdmin(admin.ModelAdmin):
     list_display = ('user', 'rating', 'comment')
     ordering = ('-id',)
 
+
+@admin.register(Discount)
+class DiscountAdmin(admin.ModelAdmin):
+    list_display = ('user', 'formatted_amount', 'active')
+    ordering = ('-active', '-id')
+
+    @staticmethod
+    def formatted_amount(obj):
+        return f'{obj.amount:.2f} %'

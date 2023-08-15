@@ -6,7 +6,6 @@
             font-size: 20px;
         }
     </style>
-    <!-- shop section -->
 
     <section class="shop_section layout_padding">
         <div class="container">
@@ -19,20 +18,20 @@
                 {% for contact in object_list %}
                     <h6 class="order-info">
                         <div>
-                            --Name:
-                            {{ contact.name }}--
+                            Name:
+                            {{ contact.name }} &#9889
                         </div>
                         <div>
-                            --Email:
-                            {{ contact.email }}--
+                            Email:
+                            {{ contact.email }} &#11093
                         </div>
                         <div>
-                            --Phone number:
-                            {{ contact.phone_number }}--
+                            Phone number:
+                            {{ contact.phone_number }} &#128222
                         </div>
                         <p>
-                            --Message:
-                            {{ contact.message }}--
+                            Message:
+                            {{ contact.message }} &#128172
                         </p>
                         <a href="{% url 'delete-contact' pk=contact.pk %}" class="btn btn-primary btn-sm">
                             Delete message
@@ -42,6 +41,5 @@
             </div>
         </div>
     </section>
-    <!-- end shop section -->
 
 {% endblock %}

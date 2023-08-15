@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from online_shop.web.forms import TestimonialForm
+from online_shop.web.forms import CreateTestimonialForm
 
 
 class TestimonialFormTest(TestCase):
@@ -9,10 +9,10 @@ class TestimonialFormTest(TestCase):
             'rating': 5,
             'comment': 'Excellent!',
         }
-        form = TestimonialForm(data=form_data)
+        form = CreateTestimonialForm(data=form_data)
         self.assertTrue(form.is_valid())
 
     def test_empty_form(self):
-        form = TestimonialForm(data={})
+        form = CreateTestimonialForm(data={})
         self.assertFalse(form.is_valid())
         self.assertEqual(len(form.errors), 2)

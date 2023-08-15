@@ -6,10 +6,10 @@
             font-size: 20px;
         }
     </style>
-    <!-- shop section -->
 
     <section class="shop_section layout_padding">
         <div class="container">
+            {% if object_list %}
             <div class="heading_container heading_center">
                 <h2>
                     My Orders
@@ -18,37 +18,47 @@
             <div class="row">
                 {% for order in object_list %}
                     <h6 class="order-info">
-                        {% for order in object_list %}
-                    <h6 class="order-info">
                         <div>
-                            --Names:
-                            {{ order.first_name }} {{ order.last_name }}--
+                            Names:
+                            {{ order.first_name }} {{ order.last_name }} &#11088
                         </div>
                         <div>
-                            --Delivery:
+                            Delivery:
                             {% if order.delivery_type == 'H' %}
                                 Home address delivery -
                                 {% if order.delivery_company == 'E' %}
-                                    Econt--
+                                    Econt &#128666
                                 {% else %}
-                                    Speedy--
+                                    Speedy &#128666
                                 {% endif %}
-                            {% else %}
+                            {% elif order.delivery_type == 'O' %}
+                                Office delivery -
+                                {% if order.delivery_company == 'E' %}
+                                    Econt &#128666
+                                {% else %}
+                                    Speedy &#128666
+                                {% endif %}
                             {% endif %}
+
                         </div>
                         <div>
-                            --Address:
-                            {{ order.address }}--
+                            Address:
+                            {{ order.address }} &#11093
                         </div>
                         <a href="{% url 'delete-order' pk=order.pk %}" class="btn btn-primary btn-sm">
                             Delete order
                         </a>
                     </h6>
                 {% endfor %}
-                    </h6>
-                {% endfor %}
+                {% else %}
+                <div class="heading_container heading_center">
+                    <h1>
+                        It appears that you haven't placed any orders yet.
+                    </h1>
+                </div>
+                {% endif %}
                 <div class="col-12 text-center mt-4">
-                        <div class="btn-box">
+                    <div class="btn-box">
                         <a href="{% url 'shop_page' %}" class="btn btn-primary btn-sm">
                             Back to shop
                         </a>
@@ -57,6 +67,5 @@
             </div>
         </div>
     </section>
-    <!-- end shop section -->
 
 {% endblock %}

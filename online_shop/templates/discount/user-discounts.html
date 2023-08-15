@@ -1,0 +1,60 @@
+{% extends 'common/base.html' %}
+{% load static %}
+{% block content %}
+    <style>
+        .discount-info {
+            font-size: 20px;
+        }
+    </style>
+
+    <section class="shop_section layout_padding">
+        <div class="container">
+            {% if object_list %}
+                <div class="heading_container heading_center">
+                    <h2>
+                        My Discounts
+                    </h2>
+                </div>
+                <div class="row">
+                {% for discount in object_list %}
+                    <h6 class="discount-info">
+                        <div>
+                            Code:
+                            {{ discount.code }} &#127873
+                        </div>
+                        <div>
+                            Amount:
+                            {{ discount.amount }}%
+                        </div>
+                        <div>
+                            Is active?
+                        </div>
+                        <div>
+                            {% if discount.active %}
+                                <span style='font-size:40px;'>&#9989;</span>
+                            {% else %}
+                                <span style='font-size:40px;'>&#9940;</span>
+                            {% endif %}
+                        </div>
+                    </h6>
+                {% endfor %}
+            {% else %}
+                <div class="heading_container heading_center">
+                    <h1>
+                        It seems there are no discount codes available for you at the moment.
+                    </h1>
+                </div>
+
+            {% endif %}
+            <div class="col-12 text-center mt-4">
+                <div class="btn-box">
+                    <a href="{% url 'shop_page' %}" class="btn btn-primary btn-sm">
+                        Back to shop
+                    </a>
+                </div>
+            </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

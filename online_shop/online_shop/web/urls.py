@@ -1,7 +1,8 @@
 from django.urls import path, include
 
 from online_shop.web.views import IndexPageView, ShopPageView, ContactPageView, WhyPageView, ListContactView, \
-    DeleteContactView, TestimonialsPageView, CreateTestimonialPageView
+    DeleteContactView, TestimonialsPageView, CreateTestimonialPageView, ListUserDiscountsView, ListAllDiscountsView, \
+    CreateDiscountView, DeleteDiscountView
 
 urlpatterns = (
     path('', IndexPageView.as_view(), name='index'),
@@ -14,4 +15,10 @@ urlpatterns = (
         path('list/', ListContactView.as_view(), name='list-contacts'),
         path('delete/<int:pk>/', DeleteContactView.as_view(), name='delete-contact'),
     ])),
+    path('discounts/', include([
+        path('', ListUserDiscountsView.as_view(), name='user-discounts'),
+        path('all/', ListAllDiscountsView.as_view(), name='all-discounts'),
+        path('create/', CreateDiscountView.as_view(), name='create-discount'),
+        path('delete/<int:pk>', DeleteDiscountView.as_view(), name='delete-discount'),
+    ]))
 )

@@ -5,8 +5,8 @@ from django.utils.decorators import method_decorator
 from django.views import generic as views
 
 from online_shop.products.models import Product
-from online_shop.web.forms import ContactForm, TestimonialForm
-from online_shop.web.models import Contact, Testimonial
+from online_shop.web.forms import CreateContactForm, CreateTestimonialForm, CreateDiscountForm
+from online_shop.web.models import Contact, Testimonial, Discount
 
 
 # Create your views here.
@@ -36,7 +36,7 @@ class ShopPageView(views.ListView):
 
 class ContactPageView(views.CreateView):
     template_name = 'core/contact.html'
-    form_class = ContactForm
+    form_class = CreateContactForm
     model = Contact
     success_url = reverse_lazy('index')
 
@@ -52,7 +52,7 @@ class TestimonialsPageView(views.ListView):
 
 class CreateTestimonialPageView(LoginRequiredMixin, views.CreateView):
     template_name = 'core/create-testimonial.html'
-    form_class = TestimonialForm
+    form_class = CreateTestimonialForm
     model = Testimonial
     success_url = reverse_lazy('testimonials')
 
@@ -88,3 +88,41 @@ class DeleteContactView(LoginRequiredMixin, views.DeleteView):
     model = Contact
     template_name = 'contacts/delete-contact.html'
     success_url = reverse_lazy('list-contacts')
+
+
+@method_decorator(staff_member_required(login_url=reverse_lazy("login user")), name='dispatch')
+class ListAllDiscountsView(views.ListView):
+    model = Discount
+    template_name = 'discount/all-discounts-admin.html'
+
+    def get_queryset(self):
+        queryset = Discount.objects.all()
+
+        return queryset
+
+
+class ListUserDiscountsView(LoginRequiredMixin, views.ListView):
+    model = Discount
+    template_name = 'discount/user-discounts.html'
+
+    def get_queryset(self):
+        user_id = self.request.user.id
+        queryset = Discount.objects.filter(user_id=user_id)
+
+        return queryset
+
+
+@method_decorator(staff_member_required(login_url=reverse_lazy("login user")), name='dispatch')
+class DeleteDiscountView(views.DeleteView):
+    model = Discount
+    template_name = 'discount/delete-discount.html'
+    success_url = reverse_lazy('index')
+
+
+@method_decorator(staff_member_required(login_url=reverse_lazy("login user")), name='dispatch')
+class CreateDiscountView(views.CreateView):
+    model = Discount
+    form_class = CreateDiscountForm
+    template_name = 'discount/create-discount.html'
+    success_url = reverse_lazy('all-discounts')
+

@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from online_shop.web.forms import ContactForm
+from online_shop.web.forms import CreateContactForm
 
 
 class ContactFormTest(TestCase):
@@ -11,10 +11,10 @@ class ContactFormTest(TestCase):
             'phone_number': '1234567890',
             'message': 'This is a test message.',
         }
-        form = ContactForm(data=form_data)
+        form = CreateContactForm(data=form_data)
         self.assertTrue(form.is_valid())
 
     def test_empty_form(self):
-        form = ContactForm(data={})
+        form = CreateContactForm(data={})
         self.assertFalse(form.is_valid())
         self.assertEqual(len(form.errors), 4)

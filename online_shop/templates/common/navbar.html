@@ -35,6 +35,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'testimonials' %}">Testimonials</a>
                     </li>
+                    {% if request.user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'user-discounts' %}">Discounts</a>
+                    </li>
+                    {% endif %}
                 </ul>
                 <div class="user_option">
                     {% if not request.user.is_authenticated %}
@@ -49,19 +54,22 @@
                             Profile
                         </a>
                         <a href="{% url 'logout user' %}">
-                        <i class="fa fa-sign-out" aria-hidden="true"></i>
-                    </a>
-                    {% endif %}
-                    <a href="{% url 'user-orders' %}">
+                            <i class="fa fa-sign-out" aria-hidden="true"></i>
+                        </a>
+                        <a href="{% url 'user-orders' %}">
                         <i class="fa fa-shopping-bag" aria-hidden="true"></i>
                     </a>
+                    {% endif %}
                     {% if request.user.is_staff %}
-                    <a href="{% url 'all-orders' %}">
-                        <i class="fa fa-cubes" aria-hidden="true"></i>
-                    </a>
-                    <a href="{% url 'list-contacts' %}">
-                        <i class="fa fa-question-circle" aria-hidden="true"></i>
-                    </a>
+                        <a href="{% url 'all-orders' %}">
+                            <i class="fa fa-cubes" aria-hidden="true"></i>
+                        </a>
+                        <a href="{% url 'list-contacts' %}">
+                            <i class="fa fa-question-circle" aria-hidden="true"></i>
+                        </a>
+                        <a href="{% url 'all-discounts' %}">
+                            <i class="fa fa-ticket" aria-hidden="true"></i>
+                        </a>
                     {% endif %}
                 </div>
             </div>

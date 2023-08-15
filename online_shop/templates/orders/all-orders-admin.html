@@ -6,7 +6,6 @@
             font-size: 20px;
         }
     </style>
-    <!-- shop section -->
 
     <section class="shop_section layout_padding">
         <div class="container">
@@ -19,24 +18,30 @@
                 {% for order in object_list %}
                     <h6 class="order-info">
                         <div>
-                            --Names:
-                            {{ order.first_name }} {{ order.last_name }}--
+                            Names:
+                            {{ order.first_name }} {{ order.last_name }} &#11088
                         </div>
                         <div>
-                            --Delivery:
+                            Delivery:
                             {% if order.delivery_type == 'H' %}
                                 Home address delivery -
                                 {% if order.delivery_company == 'E' %}
-                                    Econt--
+                                    Econt &#128666
                                 {% else %}
-                                    Speedy--
+                                    Speedy &#128666
                                 {% endif %}
-                            {% else %}
+                            {% elif order.delivery_type == 'O' %}
+                                Office delivery -
+                                {% if order.delivery_company == 'E' %}
+                                    Econt &#128666
+                                {% else %}
+                                    Speedy &#128666
+                                {% endif %}
                             {% endif %}
                         </div>
                         <div>
-                            --Address:
-                            {{ order.address }}--
+                            Address:
+                            {{ order.address }} &#11093
                         </div>
                         <a href="{% url 'delete-order' pk=order.pk %}" class="btn btn-primary btn-sm">
                             Delete order

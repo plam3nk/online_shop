@@ -5,8 +5,6 @@ from django.contrib.auth import models as auth_models
 from online_shop.accounts.validators import validate_value_is_all_num
 
 
-# Create your models here.
-
 class DMAppUser(auth_models.AbstractUser):
     FIRST_NAME_MIN_LEN = 2
     FIRST_NAME_MAX_LEN = 30

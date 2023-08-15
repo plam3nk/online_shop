@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, get_object_or_404
@@ -8,6 +9,7 @@ from django.views import generic as views
 from online_shop.orders.forms import OrderCreateForm
 from online_shop.orders.models import Order
 from online_shop.products.models import Product
+from online_shop.web.models import Discount
 
 
 # Create your views here.
@@ -17,6 +19,11 @@ class OrderCreateView(LoginRequiredMixin, views.CreateView):
     form_class = OrderCreateForm
     template_name = 'orders/create-order.html'
     success_url = reverse_lazy('successful-order')
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['request'] = self.request
+        return kwargs
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -33,6 +40,15 @@ class OrderCreateView(LoginRequiredMixin, views.CreateView):
         form.instance.user = self.request.user
 
         form.instance.product = product
+
+        discount_code = form.cleaned_data.get('discount_code')
+        if discount_code:
+            try:
+                discount = Discount.objects.get(code=discount_code, user=self.request.user)
+                form.instance.discount = discount
+            except Discount.DoesNotExist:
+                return self.form_invalid(form)
+
         return super().form_valid(form)
 
 
