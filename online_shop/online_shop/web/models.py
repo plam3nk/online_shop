@@ -14,16 +14,16 @@ UserModel = get_user_model()
 class Contact(models.Model):
     NAME_MAX_LEN = 40
     NAME_MIN_LEN = 2
-    PHONE_NUMBER_MAX_LEN = 10
+    PHONE_NUMBER_MAX_MIN_LEN = 10
     MESSAGE_MAX_LEN = 300
     MESSAGE_MIN_LEN = 10
+
     name = models.CharField(
         null=False,
         blank=False,
         max_length=NAME_MAX_LEN,
         validators=(
             MinLengthValidator(NAME_MIN_LEN),
-            validate_value_is_all_num,
         )
     )
 
@@ -33,7 +33,15 @@ class Contact(models.Model):
     )
 
     phone_number = models.CharField(
-        max_length=PHONE_NUMBER_MAX_LEN,
+        max_length=PHONE_NUMBER_MAX_MIN_LEN,
+        validators=(
+            validate_value_is_all_num,
+            MinLengthValidator(PHONE_NUMBER_MAX_MIN_LEN),
+        ),
+        error_messages={
+            'min_length': 'Phone number must have 10 characters.',
+            'max_length': 'Phone number must have 10 characters.',
+        }
     )
 
     message = models.TextField(

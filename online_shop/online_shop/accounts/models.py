@@ -6,11 +6,13 @@ from online_shop.accounts.validators import validate_value_is_all_num
 
 
 class DMAppUser(auth_models.AbstractUser):
+
     FIRST_NAME_MIN_LEN = 2
     FIRST_NAME_MAX_LEN = 30
     LAST_NAME_MIN_LEN = 2
     LAST_NAME_MAX_LEN = 30
     PHONE_NUMBER_MAX_MIN_LEN = 10
+
     first_name = models.CharField(
         max_length=FIRST_NAME_MAX_LEN,
         validators=(

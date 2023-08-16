@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views import generic as views
@@ -78,7 +78,16 @@ class UserOrdersView(LoginRequiredMixin, views.ListView):
         return queryset
 
 
-class DeleteOrderView(LoginRequiredMixin, views.DeleteView):
+class DeleteOrderView(UserPassesTestMixin, views.DeleteView):
     model = Order
     template_name = 'orders/delete-order.html'
     success_url = reverse_lazy('index')
+
+    def test_func(self):
+        order = self.get_object()
+        user = self.request.user
+        return user.is_staff or user.is_superuser or order.user == user
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        return super().delete(request, *args, **kwargs)

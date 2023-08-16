@@ -64,7 +64,11 @@ class Order(models.Model):
         validators=(
             validators.MinLengthValidator(PHONE_NUMBER_MAX_MIN_LEN),
             validate_value_is_all_num,
-        )
+        ),
+        error_messages={
+            'min_length': 'Phone number must have 10 characters.',
+            'max_length': 'Phone number must have 10 characters.',
+        }
     )
 
     delivery_type = models.CharField(

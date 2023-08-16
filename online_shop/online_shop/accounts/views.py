@@ -44,9 +44,7 @@ class LogoutUserView(auth_views.LogoutView):
 
 class ProfileDetailsView(views.DetailView):
     template_name = 'accounts/profile-details-page.html'
-
     model = UserModel
-
     profile_image = static('images/person.png')
 
     def get_context_data(self, **kwargs):
@@ -69,8 +67,6 @@ class ProfileEditView(views.UpdateView):
 
         return success_url
 
-
-# Test password - vaDSMPNGg96HE*J&
 
 class ProfileDeleteView(views.DeleteView):
     model = UserModel
